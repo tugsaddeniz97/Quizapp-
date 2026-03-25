@@ -1,0 +1,28 @@
+@QuizApp_HostAddress = http://localhost:5241
+
+GET {{QuizApp_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
+GET {{QuizApp_HostAddress}}/Questions
+Accept: application/json
+
+###
+POST {{QuizApp_HostAddress}}/Questions
+Content-Type: application/json
+# {
+#   "type": "multiple",
+#       "difficulty": "medium",
+#       "category": "Entertainment: Video Games",
+#       "question": "What is not a default game mode in Counter-Strike (2000)?",
+#       "correct_answer": "Arms Race",
+#       "incorrect_answers": [
+#         "Hostage Rescue",
+#         "Bomb Defusal",
+#         "Assassination"
+#       ]
+# }
+
+###
+POST {{QuizApp_HostAddress}}/Questions/import
+Content-Type: application/json

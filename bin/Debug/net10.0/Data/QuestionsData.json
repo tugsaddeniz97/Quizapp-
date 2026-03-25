@@ -1,0 +1,605 @@
+{
+  "response_code": 0,
+  "results": [
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "What is the capital of Vietnam?",
+      "correct_answer": "Hanoi",
+      "incorrect_answers": [
+        "Da Nang",
+        "Hai Phong",
+        "Ho Chi Minh City"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Where is the area commonly known as the Bermuda Triangle?",
+      "correct_answer": "North Atlantic Ocean, between Florida and Puerto Rico",
+      "incorrect_answers": [
+        "North Pacific Ocean, between Japan and the USA",
+        "In the Caribbean Sea",
+        "South Pacific Ocean, far off Chile"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "What is the most populous Muslim-majority nation in 2010?",
+      "correct_answer": "Indonesia",
+      "incorrect_answers": [
+        "Saudi Arabia",
+        "Iran",
+        "Sudan"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Which city is the capital of Switzerland?",
+      "correct_answer": "Bern",
+      "incorrect_answers": [
+        "Z&uuml;rich",
+        "Frankfurt",
+        "Wien"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Which country inside the United Kingdom does NOT appear on its flag, the Union Jack?",
+      "correct_answer": "Wales",
+      "incorrect_answers": [
+        "Scotland",
+        "Ireland",
+        "Isle of Wight"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "How many US states start with the letter K?",
+      "correct_answer": "Two",
+      "incorrect_answers": [
+        "One",
+        "None",
+        "Three"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "The Space Needle is located in which city?",
+      "correct_answer": "Seattle",
+      "incorrect_answers": [
+        "Los Angles",
+        "Toronto",
+        "Vancouver"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Greenland is a part of which kingdom?",
+      "correct_answer": "Denmark",
+      "incorrect_answers": [
+        "Sweden",
+        "Norway",
+        "United Kingdom"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What is the capital of Spain?",
+      "correct_answer": "Madrid",
+      "incorrect_answers": [
+        "Barcelona",
+        "Sevilla",
+        "Toledo"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": " What is the only nation that borders both Uruguay and Venezuela?",
+      "correct_answer": "Brazil",
+      "incorrect_answers": [
+        "Mexico",
+        "Chile",
+        "Panama"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "What&#039;s the first National Park designated in the United States?",
+      "correct_answer": "Yellowstone",
+      "incorrect_answers": [
+        "Sequoia ",
+        "Yosemite",
+        "Rocky Mountain"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Where is the Volga River?",
+      "correct_answer": "Russia",
+      "incorrect_answers": [
+        "Bulgaria",
+        "India",
+        "Sweden"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Harvard University is located in which city?",
+      "correct_answer": "Cambridge",
+      "incorrect_answers": [
+        "Providence",
+        "New York",
+        "Washington D.C."
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Which islands below have been claimed by both Japan and Russia?",
+      "correct_answer": "Kuril Islands",
+      "incorrect_answers": [
+        "Paracel Islands",
+        "Chagos Islands",
+        "Spratly Islands"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "The Hunua Ranges is located in...",
+      "correct_answer": "New Zealand",
+      "incorrect_answers": [
+        "Nepal",
+        "China",
+        "Mexico"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "Which of the following Inuit languages was the FIRST to use a unique writing system not based on the Latin alphabet?",
+      "correct_answer": "Inuktitut",
+      "incorrect_answers": [
+        "Inuinnaqtun",
+        "Greenlandic",
+        "Inupiat"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "What is the capital of Laos?",
+      "correct_answer": "Vientiane",
+      "incorrect_answers": [
+        "Tarawa",
+        "Vaduz",
+        "Tegucigalpa"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "How many stars are featured on New Zealand&#039;s flag?",
+      "correct_answer": "4",
+      "incorrect_answers": [
+        "5",
+        "2",
+        "0"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "What national museum will you find in Cooperstown, New York?",
+      "correct_answer": "National Baseball Hall of Fame",
+      "incorrect_answers": [
+        "Metropolitan Museum of Art",
+        "National Toy Hall of Fame",
+        "Museum of Modern Art"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "What is the area of Vatican City?",
+      "correct_answer": "0.44km^2",
+      "incorrect_answers": [
+        "0.10km^2",
+        "0.86km^2",
+        "12.00km^2"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which of these places is a location in Cornwall?",
+      "correct_answer": "Barcelona",
+      "incorrect_answers": [
+        "Madrid",
+        "Alicante",
+        "Lisbon"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "What event led to Liechenstein adding a crown to its flag?",
+      "correct_answer": "The 1936 Olympics",
+      "incorrect_answers": [
+        "Coronation of Prince Johann I Joseph in 1805",
+        "Charles VI&#039;s decree in 1719",
+        "Signing of the 1862 Constitution of Liechtenstein"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What is Russia&#039;s second-largest city?",
+      "correct_answer": "Saint Petersburg",
+      "incorrect_answers": [
+        "Minsk",
+        "Nizhny Novgorod",
+        "Vladivostok"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Where is the &quot;Sonoran Desert&quot; located?",
+      "correct_answer": "North America",
+      "incorrect_answers": [
+        "South America",
+        "Asia",
+        "Africa"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Which of the following countries is an island?",
+      "correct_answer": "Cyprus",
+      "incorrect_answers": [
+        "Azerbaijan",
+        "El Salvador",
+        "Djibouti"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which European city is known as the &quot;City of Light&quot;?",
+      "correct_answer": "Paris",
+      "incorrect_answers": [
+        "Rome",
+        "London",
+        "Madrid"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "How many timezones does Russia have?",
+      "correct_answer": "11",
+      "incorrect_answers": [
+        "6",
+        "24",
+        "16"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What is the capital of Indonesia?",
+      "correct_answer": "Jakarta",
+      "incorrect_answers": [
+        "Bandung",
+        "Medan",
+        "Palembang"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What is the nickname for the US state Delaware?",
+      "correct_answer": "The First State",
+      "incorrect_answers": [
+        "The Fiftieth State",
+        "The Second State",
+        "The Sixteenth State"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What is the only state in the United States that does not have a flag in a shape with 4 edges?",
+      "correct_answer": "Ohio",
+      "incorrect_answers": [
+        "Florida",
+        "Idaho",
+        "New Mexico"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "In which Indian city can the Taj Mahal be found?",
+      "correct_answer": "Agra",
+      "incorrect_answers": [
+        "Mumbai",
+        "Faridabad",
+        "Thane"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "How many countries border Kyrgyzstan?",
+      "correct_answer": "4",
+      "incorrect_answers": [
+        "3",
+        "1",
+        "6"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "How many countries does Spain have a land border with?",
+      "correct_answer": "5",
+      "incorrect_answers": [
+        "2",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "How many countries share a land border with Luxembourg?",
+      "correct_answer": "3",
+      "incorrect_answers": [
+        "4",
+        "2",
+        "5"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Where are the Nazca Lines located?",
+      "correct_answer": "Peru",
+      "incorrect_answers": [
+        "Brazil",
+        "Colombia",
+        "Ecuador"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "In which country is the city of Rio de Janeiro?",
+      "correct_answer": "Brazil",
+      "incorrect_answers": [
+        "Peru",
+        "Chile",
+        "Venezuela"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which US state is also known as the &quot;Lone Star State&quot;?",
+      "correct_answer": "Texas",
+      "incorrect_answers": [
+        "Alabama",
+        "Tennessee",
+        "Kentucky"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "The Svalbard Archipelago is a dependency of which country?",
+      "correct_answer": "Norway",
+      "incorrect_answers": [
+        "Denmark",
+        "Iceland",
+        "Russia"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which UK country features a dragon on their flag?",
+      "correct_answer": "Wales",
+      "incorrect_answers": [
+        "England",
+        "North Ireland",
+        "Scotland"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "What is the name of the Canadian national anthem?",
+      "correct_answer": "O Canada",
+      "incorrect_answers": [
+        "O Red Maple",
+        "Leaf-Spangled Banner",
+        "March of the Puck Drop"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Where is Hadrian&#039;s Wall located?",
+      "correct_answer": "Carlisle, England",
+      "incorrect_answers": [
+        "Rome, Italy",
+        "Alexandria, Egypt",
+        "Dublin, Ireland"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "What is the capital of the US state Nevada?",
+      "correct_answer": "Carson City",
+      "incorrect_answers": [
+        "Las Vegas",
+        "Henderson",
+        "Reno"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which Borough is the farthest in the north of New York City?",
+      "correct_answer": "Bronx",
+      "incorrect_answers": [
+        "Queens",
+        "Brooklyn",
+        "Manhattan"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "Which of the following Japanese islands is the biggest?",
+      "correct_answer": "Honshu",
+      "incorrect_answers": [
+        "Hokkaido",
+        "Shikoku",
+        "Kyushu"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What country is the second largest in the world by area?",
+      "correct_answer": "Canada",
+      "incorrect_answers": [
+        "Russia",
+        "China",
+        "United States of America"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "Where is the ancient city of Petra located?",
+      "correct_answer": "Jordan",
+      "incorrect_answers": [
+        "Egypt",
+        "Israel",
+        "Italy"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "easy",
+      "category": "Geography",
+      "question": "What is the largest country in the world ?",
+      "correct_answer": "Russian Federation",
+      "incorrect_answers": [
+        "China",
+        "Canada",
+        "Brazil"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "medium",
+      "category": "Geography",
+      "question": "What is the capital city of Slovenia?",
+      "correct_answer": "Ljubljana",
+      "incorrect_answers": [
+        "Maribor",
+        "Velenje",
+        "Trbovlje"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "Which of the following is a castle?",
+      "correct_answer": "Elizabeth Castle",
+      "incorrect_answers": [
+        "Frank Castle",
+        "Richard Castle",
+        "Olivia Castle"
+      ]
+    },
+    {
+      "type": "multiple",
+      "difficulty": "hard",
+      "category": "Geography",
+      "question": "Which of these countries is NOT a part of the Asian continent?",
+      "correct_answer": "Suriname",
+      "incorrect_answers": [
+        "Georgia",
+        "Russia",
+        "Singapore"
+      ]
+    }
+  ]
+}
