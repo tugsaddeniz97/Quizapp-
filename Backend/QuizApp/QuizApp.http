@@ -26,3 +26,21 @@ Content-Type: application/json
 ###
 POST {{QuizApp_HostAddress}}/Questions/import
 Content-Type: application/json
+
+
+###
+POST {{QuizApp_HostAddress}}/Player
+Content-Type: application/json
+{
+  userName: "Goga"
+}
+
+###
+POST {{QuizApp_HostAddress}}/play
+content-Type: application/json
+{
+  "PlayerId":1,
+  "QuestionId":1,
+  "Answer": "Hanoi",
+  "TimeTakenSeconds": 7
+}
