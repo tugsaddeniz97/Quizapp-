@@ -20,6 +20,8 @@ namespace QuizApp.Controllers
             public string UserName { get; set; }
         }
 
+
+
         [HttpPost]
         public IActionResult CreatePlayer([FromBody] CreatePlayerRequest request)
         {
@@ -30,12 +32,19 @@ namespace QuizApp.Controllers
             var player = new Models.Player
             {
                 Username = request.UserName,
-                
+
             };
             _context.Players.Add(player);
             _context.SaveChanges();
             return Ok(player);
         }
-    }
 
+        [HttpGet]
+        public IActionResult GetPlayers()
+        {
+            var players = _context.Players.ToList();
+            return Ok(players);
+        }
+
+    }
 }

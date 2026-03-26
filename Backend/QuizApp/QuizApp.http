@@ -32,15 +32,19 @@ Content-Type: application/json
 POST {{QuizApp_HostAddress}}/Player
 Content-Type: application/json
 {
-  userName: "Goga"
+  "userName": "Tu??ad"
 }
+
+###
+GET {{QuizApp_HostAddress}}/Player
+Content-Type: application/json
 
 ###
 POST {{QuizApp_HostAddress}}/play
 content-Type: application/json
 {
-  "PlayerId":1,
-  "QuestionId":1,
+  "PlayerId":2,
+  "QuestionId":5,
   "Answer": "Hanoi",
-  "TimeTakenSeconds": 7
+  "TimeTakenSeconds": 12
 }
