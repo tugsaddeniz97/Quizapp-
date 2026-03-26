@@ -43,8 +43,8 @@ Content-Type: application/json
 POST {{QuizApp_HostAddress}}/play
 content-Type: application/json
 {
-  "PlayerId":2,
-  "QuestionId":5,
+  "PlayerId":3,
+  "QuestionId":6,
   "Answer": "Hanoi",
   "TimeTakenSeconds": 12
 }
