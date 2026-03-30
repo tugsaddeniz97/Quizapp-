@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using QuizApp.Data;
 using QuizApp.Models;
-
+using QuizApp.DTOs;
 namespace QuizApp.Controllers
 {
     [ApiController]
@@ -49,12 +49,11 @@ namespace QuizApp.Controllers
             player.TotalScore += points;
             _context.SaveChanges();
 
-            return Ok(new
+            return Ok(new PlayResponse
             {
                 Correct = isCorrect,
                 PointsEarned = points,
-                player.TotalScore
-
+                TotalScore = player.TotalScore
             });
         }
     }
