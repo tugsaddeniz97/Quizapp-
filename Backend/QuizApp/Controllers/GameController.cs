@@ -2,6 +2,7 @@
 using QuizApp.Data;
 using QuizApp.Models;
 using QuizApp.DTOs;
+using QuizApp.Mapper;
 namespace QuizApp.Controllers
 {
     [ApiController]
@@ -56,5 +57,13 @@ namespace QuizApp.Controllers
                 TotalScore = player.TotalScore
             });
         }
+        [HttpGet("questions")]
+        public IActionResult GetQuestionsForPlay()
+        {
+            var questions = _context.Questions.ToList().Select(q => QuestionMapper.ToPlayDTO(q)).Take(10);
+            return Ok(questions);
+        }
+
+        
     }
 }

@@ -31,5 +31,27 @@ namespace QuizApp.Mapper
                 Incorrect_Answers = JsonSerializer.Deserialize<List<string>>(entity.IncorrectAnswersJson)
             };
         }
+
+        public static PlayQuestionDTO ToPlayDTO(Question question)
+        {
+            var incorrectAnswers = JsonSerializer.Deserialize<List<String>>(question.IncorrectAnswersJson);
+            var allAnswers = new List<string>();
+
+            if (incorrectAnswers != null)
+                allAnswers.AddRange(incorrectAnswers);
+            allAnswers.Add(question.CorrectAnswer);
+
+
+            var rnd = new Random();
+            allAnswers = allAnswers.OrderBy(x => rnd.Next()).ToList();
+
+            return new PlayQuestionDTO
+            {
+                Id = question.Id,
+                Question = question.Text,
+                Answers = allAnswers
+            };
+
+        }
     }
 }

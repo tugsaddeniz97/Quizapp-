@@ -21,21 +21,25 @@ Content-Type: application/json
 # }
 
 ###
-POST {{QuizApp_HostAddress}}/Questions/import
-Content-Type: application/json
+# POST {{QuizApp_HostAddress}}/Questions/import
+# Content-Type: application/json
 
 
 ###
 POST {{QuizApp_HostAddress}}/Player
 Content-Type: application/json
-{
-  "userName": "Tu??ad"
-}
+# {
+#   "userName": "TestUser"
+# }
 
 ###
 GET {{QuizApp_HostAddress}}/Player
 Content-Type: application/json
 
+
+###
+GET {{QuizApp_HostAddress}}/play/questions
+content-type: application/json
 ###
 POST {{QuizApp_HostAddress}}/play
 content-Type: application/json
