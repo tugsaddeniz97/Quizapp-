@@ -11,5 +11,20 @@ namespace QuizApp.Models
         public int TotalScore { get; set; } = 0;
         public List<Score> Scores { get; set; }
 
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is Player other)
+            {
+                return this.Username == other.Username &&
+                       this.TotalScore == other.TotalScore;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Username, TotalScore);
+        }
     }
 }
