@@ -58,9 +58,14 @@ namespace QuizApp.Controllers
             });
         }
         [HttpGet("questions")]
-        public IActionResult GetQuestionsForPlay()
+        public IActionResult GetQuestionsForPlay(int count = 10)
         {
-            var questions = _context.Questions.ToList().Select(q => QuestionMapper.ToPlayDTO(q)).Take(10);
+            var questions = _context.Questions.ToList()
+                .OrderBy(q => Guid.NewGuid())
+                .Take(count)
+                .Select(q => QuestionMapper.ToPlayDTO(q));
+                
+                
             return Ok(questions);
         }
 

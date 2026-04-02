@@ -49,7 +49,8 @@ namespace QuizApp.Mapper
             {
                 Id = question.Id,
                 Question = question.Text,
-                Answers = allAnswers
+                Answers = allAnswers,
+                Category = question.Category
             };
 
         }
