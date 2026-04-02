@@ -109,3 +109,40 @@ Run tests with `dotnet test` from QuizApp.Tests folder.
 Tests use in-memory database and follow AAA pattern (Arrange-Act-Assert).
 
 ## 📁 Project Structure
+QuizApp/
+├── Controllers/
+│   ├── GameController.cs
+│   ├── PlayerController.cs
+│   └── QuestionsController.cs
+├── Models/
+│   ├── Player.cs
+│   ├── Question.cs
+│   └── Score.cs
+├── DTOs/
+│   ├── QuestionDTO.cs
+│   ├── PlayQuestionDTO.cs
+│   ├── PlayResponse.cs
+│   └── QuestionApiResponse.cs
+├── Mapper/
+│   └── QuestionMapper.cs
+├── Data/
+│   └── AppDbContext.cs
+├── Properties/
+│   └── launchSettings.json
+├── data/
+│   └── questionsData.json
+├── Program.cs
+├── appsettings.json
+├── appsettings.Development.json
+├── QuizApp.csproj
+├── QuizApp.http
+└── quiz.db
+
+QuizApp.Tests/
+├── ControllerTests/
+│   ├── GameControllerTests.cs
+│   ├── PlayerControllerTests.cs
+│   └── QuestionControllerTests.cs
+└── Compares/
+    ├── QuestionDTOCompare.cs
+    └── PlayerCompare.cs
