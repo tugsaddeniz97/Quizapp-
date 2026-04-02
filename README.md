@@ -71,7 +71,7 @@ The application follows a 3-tier architecture with Controllers (API), Business L
 
 1. Navigate to your frontend folder
 2. Run `npm install`
-3. Run `npm run dev` (React app on http://localhost:7239)
+3. Run `npm run dev` (React app on http://localhost:5173)
 
 Note: CORS is configured for localhost:5173. Update Program.cs if using a different port.
 
