@@ -1,4 +1,4 @@
-Goga Gogeshvili 07.04.2026 10:44 • # 🎯 QuizApp
+# 🎯 QuizApp
 
 A full-stack quiz application built with **ASP.NET Core 10** (backend) and **React** (frontend). Players can answer trivia questions, earn points based on speed and accuracy, and compete on leaderboards.
 
