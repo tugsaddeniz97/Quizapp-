@@ -54,7 +54,8 @@ namespace QuizApp.Controllers
             {
                 Correct = isCorrect,
                 PointsEarned = points,
-                TotalScore = player.TotalScore
+                TotalScore = player.TotalScore,
+                CorrectAnswer = question.CorrectAnswer
             });
         }
         [HttpGet("questions")]
