@@ -107,7 +107,6 @@ Note: CORS is configured for localhost:5173. Update Program.cs if using a differ
 ## 🧪 Testing
 
 Run tests with `dotnet test` from QuizApp.Tests folder.
-
 Tests use in-memory database and follow AAA pattern (Arrange-Act-Assert).
 
 ## 📁 Project Structure
@@ -149,7 +148,6 @@ QuizApp.Tests/
 ├── QuestionDTOCompare.cs
 └── PlayerCompare.cs
 
-## 🎨 Frontend Structure
 Frontend/
 ├── public/
 │ └── images/
@@ -172,8 +170,5 @@ Frontend/
 ├── tailwind.config.js
 └── vite.config.js
 
-**Frontend Highlights:**
-- **LoginPage**: user login / player creation
-- **QuizGame**: quiz flow, timer, scoring feedback, help modal
-- **Leaderboard**: sorted player rankings from `/Player`
-- **api.js**: centralized API calls (`/play`, `/play/questions`, `/Player`)
+
+
