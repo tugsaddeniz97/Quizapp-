@@ -12,6 +12,7 @@ A full-stack quiz application built with **ASP.NET Core 10** (backend) and **Rea
 - [Database Schema](#database-schema)
 - [Testing](#testing)
 - [Project Structure](#project-structure)
+- [Frontend Structure](#frontend-structure)
 
 ## ✨ Features
 
@@ -36,6 +37,7 @@ A full-stack quiz application built with **ASP.NET Core 10** (backend) and **Rea
 **Frontend:**
 - React
 - Vite (Development server on port 5173)
+- Tailwind CSS
 
 **Tools:**
 - CORS configured for React frontend
@@ -105,32 +107,32 @@ Note: CORS is configured for localhost:5173. Update Program.cs if using a differ
 ## 🧪 Testing
 
 Run tests with `dotnet test` from QuizApp.Tests folder.
-
 Tests use in-memory database and follow AAA pattern (Arrange-Act-Assert).
 
 ## 📁 Project Structure
+```
 QuizApp/
 ├── Controllers/
-│   ├── GameController.cs
-│   ├── PlayerController.cs
-│   └── QuestionsController.cs
+│ ├── GameController.cs
+│ ├── PlayerController.cs
+│ └── QuestionsController.cs
 ├── Models/
-│   ├── Player.cs
-│   ├── Question.cs
-│   └── Score.cs
+│ ├── Player.cs
+│ ├── Question.cs
+│ └── Score.cs
 ├── DTOs/
-│   ├── QuestionDTO.cs
-│   ├── PlayQuestionDTO.cs
-│   ├── PlayResponse.cs
-│   └── QuestionApiResponse.cs
+│ ├── QuestionDTO.cs
+│ ├── PlayQuestionDTO.cs
+│ ├── PlayResponse.cs
+│ └── QuestionApiResponse.cs
 ├── Mapper/
-│   └── QuestionMapper.cs
+│ └── QuestionMapper.cs
 ├── Data/
-│   └── AppDbContext.cs
+│ └── AppDbContext.cs
 ├── Properties/
-│   └── launchSettings.json
+│ └── launchSettings.json
 ├── data/
-│   └── questionsData.json
+│ └── questionsData.json
 ├── Program.cs
 ├── appsettings.json
 ├── appsettings.Development.json
@@ -140,9 +142,34 @@ QuizApp/
 
 QuizApp.Tests/
 ├── ControllerTests/
-│   ├── GameControllerTests.cs
-│   ├── PlayerControllerTests.cs
-│   └── QuestionControllerTests.cs
+│ ├── GameControllerTests.cs
+│ ├── PlayerControllerTests.cs
+│ └── QuestionControllerTests.cs
 └── Compares/
-    ├── QuestionDTOCompare.cs
-    └── PlayerCompare.cs
+├── QuestionDTOCompare.cs
+└── PlayerCompare.cs
+
+Frontend/
+├── public/
+│ └── images/
+├── src/
+│ ├── assets/
+│ ├── components/
+│ │ ├── Leaderboard.jsx
+│ │ ├── LandingPage.jsx
+│ │ ├── LoginPage.jsx
+│ │ └── QuizGame.jsx
+│ ├── services/
+│ │ └── api.js
+│ ├── App.jsx
+│ ├── App.css
+│ ├── index.css
+│ └── main.jsx
+├── index.html
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+└── vite.config.js
+
+```
+
