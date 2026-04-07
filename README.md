@@ -110,6 +110,7 @@ Run tests with `dotnet test` from QuizApp.Tests folder.
 Tests use in-memory database and follow AAA pattern (Arrange-Act-Assert).
 
 ## 📁 Project Structure
+```
 QuizApp/
 ├── Controllers/
 │ ├── GameController.cs
@@ -170,5 +171,5 @@ Frontend/
 ├── tailwind.config.js
 └── vite.config.js
 
-
+```
 
