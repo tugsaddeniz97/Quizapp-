@@ -23,7 +23,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore backend dependencies
-      run: dotnet restore
+      run: dotnet restore Backend/QuizApp/QuizApp.csproj
 
     - name: Build backend
       run: dotnet build --no-restore --configuration Release
