@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using System.Net.Http.Json;
 using QuizApp.DTOs;
@@ -6,11 +5,11 @@ using Xunit;
 
 namespace QuizApp.Tests.IntegrationTests
 {
-    public class SimpleIntegrationTest : IClassFixture<WebApplicationFactory<Program>>
+    public class SimpleIntegrationTest : IClassFixture<TestWebApplicationFactory>
     {
         private readonly HttpClient _client;
 
-        public SimpleIntegrationTest(WebApplicationFactory<Program> factory)
+        public SimpleIntegrationTest(TestWebApplicationFactory factory)
         {
             _client = factory.CreateClient();
         }
