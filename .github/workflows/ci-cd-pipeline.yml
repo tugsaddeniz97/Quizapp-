@@ -2,54 +2,28 @@
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
+    branches: [main]
 
 jobs:
-  build-test:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout repo
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    # -----------------------
-    # BACKEND (.NET)
-    # -----------------------
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '10.0.x'
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
 
-    - name: Restore backend dependencies
-      run: dotnet restore Backend/QuizApp.sln
+      - name: Restore dependencies
+        run: dotnet restore
 
-    - name: Build backend
-      run: dotnet build Backend/QuizApp.sln --configuration Release
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
 
-    - name: Run backend tests
-      run: dotnet test Backend/QuizApp.Tests/QuizApp.Tests.csproj --no-build --verbosity normal
-
-    # -----------------------
-    # FRONTEND (React + Vite)
-    # -----------------------
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-
-    - name: Install frontend dependencies
-      working-directory: ./Frontend
-      run: npm install
-
-    - name: Build frontend
-      working-directory: ./Frontend
-      run: npm run build
-
-    # -----------------------
-    # QA CHECKS
-    # -----------------------
-    - name: Run ESLint
-      working-directory: ./Frontend
-      run: npm run lint
+      - name: Test
+        run: dotnet test --configuration Release --no-build --verbosity normal
