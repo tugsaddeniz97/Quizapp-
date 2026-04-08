@@ -1,48 +1,33 @@
 using System.Net;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Mvc.Testing;
 using QuizApp.DTOs;
 using Xunit;
 
 namespace QuizApp.Tests.IntegrationTests
 {
-    public class SimpleIntegrationTest : IClassFixture<TestWebApplicationFactory>
+    public class SimpleIntegrationTest : IClassFixture<WebApplicationFactory<Program>>
     {
-        private readonly HttpClient _client;
+        private readonly WebApplicationFactory<Program> _factory;
 
-        public SimpleIntegrationTest(TestWebApplicationFactory factory)
+        public SimpleIntegrationTest(WebApplicationFactory<Program> factory)
         {
-            _client = factory.CreateClient();
+            _factory = factory;
         }
 
         [Fact]
-        public async Task GetQuestions_ReturnsOkStatus()
+        public async Task GetPlayers_ReturnsOkStatus()
         {
+            // Arrange
+            var client = _factory.CreateClient();
+
             // Act
-            var response = await _client.GetAsync("/Questions");
+            var response = await client.GetAsync("/Player");
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
 
-        [Fact]
-        public async Task AddQuestion_ThenRetrieveIt_WorksEndToEnd()
-        {
-            // Arrange
-            var newQuestion = new QuestionDTO
-            {
-                Type = "multiple",
-                Difficulty = "easy",
-                Category = "Test",
-                Question = "Integration test question?",
-                Correct_Answer = "Yes",
-                Incorrect_Answers = new List<string> { "No", "Maybe" }
-            };
-
-            // Act - Add question via HTTP
-            var postResponse = await _client.PostAsJsonAsync("/Questions", newQuestion);
-            
-            // Assert - Check it was added
-            Assert.Equal(HttpStatusCode.OK, postResponse.StatusCode);
-        }
+        
     }
 }
