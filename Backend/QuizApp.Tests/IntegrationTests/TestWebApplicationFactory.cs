@@ -1,8 +1,8 @@
-using System.Linq;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using QuizApp.Data;
 
 namespace QuizApp.Tests.IntegrationTests
@@ -13,13 +13,8 @@ namespace QuizApp.Tests.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                var descriptor = services.SingleOrDefault(
-                    service => service.ServiceType == typeof(DbContextOptions<AppDbContext>));
-
-                if (descriptor != null)
-                {
-                    services.Remove(descriptor);
-                }
+                services.RemoveAll(typeof(DbContextOptions<AppDbContext>));
+                services.RemoveAll(typeof(AppDbContext));
 
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseInMemoryDatabase("QuizAppTestDb"));
