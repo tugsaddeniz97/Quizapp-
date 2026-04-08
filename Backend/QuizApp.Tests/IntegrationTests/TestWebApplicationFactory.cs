@@ -13,16 +13,19 @@ namespace QuizApp.Tests.IntegrationTests
         {
             builder.ConfigureServices(services =>
             {
-                services.RemoveAll(typeof(DbContextOptions<AppDbContext>));
-                services.RemoveAll(typeof(AppDbContext));
+                // Remove the existing DbContext registration
+                var descriptor = services.SingleOrDefault(
+                    d => d.ServiceType == typeof(DbContextOptions<AppDbContext>));
+                if (descriptor != null)
+                {
+                    services.Remove(descriptor);
+                }
 
+                // Add InMemory database for testing
                 services.AddDbContext<AppDbContext>(options =>
-                    options.UseInMemoryDatabase("QuizAppTestDb"));
-
-                using var serviceProvider = services.BuildServiceProvider();
-                using var scope = serviceProvider.CreateScope();
-                var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-                db.Database.EnsureCreated();
+                {
+                    options.UseInMemoryDatabase("QuizAppTestDb");
+                });
             });
         }
     }
