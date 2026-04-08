@@ -49,7 +49,7 @@ jobs:
 
       # Build Artifacts
       - name: Publish Application
-        run: dotnet publish QuizApp/QuizApp.csproj -c Release -o ./publish
+        run: dotnet publish QuizApp -c Release -o ./publish
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
