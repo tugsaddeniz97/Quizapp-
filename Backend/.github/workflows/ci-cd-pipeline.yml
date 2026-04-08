@@ -1,282 +1,55 @@
-﻿name: Continuous Delivery Pipeline
+﻿name: CI Pipeline
 
 on:
   push:
-    branches: [ main, develop ]
-  pull_request:
     branches: [ main ]
-
-env:
-  DOTNET_VERSION: '10.0.x'
-  BACKEND_PROJECT: 'Backend/QuizApp/QuizApp.csproj'
-  TEST_PROJECT: 'Backend/QuizApp.Tests/QuizApp.Tests.csproj'
-  FRONTEND_DIR: 'Frontend'
+  pull_request:
 
 jobs:
-
-  backend-ci:
-    name: Backend - Build & Test (CI Environment)
+  build-test:
     runs-on: ubuntu-latest
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-    
-    - name: 🔧 Setup .NET 10
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-    
-    - name: 📦 Restore dependencies
-      run: dotnet restore ${{ env.BACKEND_PROJECT }}
-    
-    - name: 🏗️ Build Backend
-      run: dotnet build ${{ env.BACKEND_PROJECT }} --configuration Release --no-restore
-    
-    # FIXED: Updated test command with proper coverage collection
-    - name: 🧪 Run Unit Tests
-      run: |
-        dotnet test ${{ env.TEST_PROJECT }} \
-          --configuration Release \
-          --no-build \
-          --logger "trx;LogFileName=test-results.trx" \
-          --collect:"XPlat Code Coverage" \
-          --results-directory ./TestResults \
-          -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=cobertura
-    
-    # FIXED: Updated to handle coverage files properly with fallback
-    - name: 📊 Code Coverage Analysis
-      uses: irongut/CodeCoverageSummary@v1.3.0
-      if: always()
-      continue-on-error: true
-      with:
-        filename: 'TestResults/**/coverage.cobertura.xml'
-        fail_below_min: false
-        thresholds: '70 80'
-        format: markdown
-        output: both
-    
-    - name: 📤 Upload Test Results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: backend-test-results
-        path: TestResults/**/*
-        retention-days: 30
-    
-    - name: 📦 Publish Backend for Deployment
-      run: dotnet publish ${{ env.BACKEND_PROJECT }} -c Release -o ./backend-build
-    
-    - name: 📤 Upload Backend Build
-      uses: actions/upload-artifact@v4
-      with:
-        name: backend-build
-        path: ./backend-build
-        retention-days: 7
 
-  frontend-ci:
-    name: Frontend - Build & Test (CI Environment)
-    runs-on: ubuntu-latest
-    
     steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-    
-    - name: 🔧 Setup Node.js
-      uses: actions/setup-node@v4
+    # 1. Checkout repo
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # -----------------------
+    # BACKEND (.NET)
+    # -----------------------
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore backend dependencies
+      run: dotnet restore
+
+    - name: Build backend
+      run: dotnet build --no-restore --configuration Release
+
+    - name: Run backend unit tests
+      run: dotnet test --no-build --verbosity normal
+
+    # -----------------------
+    # FRONTEND (React + Vite)
+    # -----------------------
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
       with:
         node-version: '20'
-        cache: 'npm'
-        cache-dependency-path: '${{ env.FRONTEND_DIR }}/package-lock.json'
-    
-    - name: 📦 Install Frontend Dependencies
-      working-directory: ${{ env.FRONTEND_DIR }}
-      run: npm ci
-    
-    - name: 🔍 Lint Frontend Code
-      working-directory: ${{ env.FRONTEND_DIR }}
-      run: npm run lint || echo "⚠️ Linting not configured, skipping..."
-    
-    - name: 🧪 Run Frontend Tests
-      working-directory: ${{ env.FRONTEND_DIR }}
-      run: npm test -- --run || echo "⚠️ No frontend tests configured yet"
-    
-    - name: 🏗️ Build Frontend
-      working-directory: ${{ env.FRONTEND_DIR }}
+
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm install
+
+    - name: Build frontend
+      working-directory: ./frontend
       run: npm run build
-    
-    - name: 📤 Upload Frontend Build
-      uses: actions/upload-artifact@v4
-      with:
-        name: frontend-build
-        path: ${{ env.FRONTEND_DIR }}/dist
-        retention-days: 7
 
-  quality-checks:
-    name: Quality Assurance (3 Measures)
-    runs-on: ubuntu-latest
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-    
-    - name: 🔧 Setup .NET 10
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-    
-    - name: 🛡️ Security Scan - Vulnerable Dependencies
-      run: |
-        echo "============================================"
-        echo "Scanning for vulnerable NuGet packages..."
-        echo "============================================"
-        dotnet list ${{ env.BACKEND_PROJECT }} package --vulnerable --include-transitive || true
-    
-    - name: 🔍 Static Code Analysis - Code Quality
-      run: |
-        echo "============================================"
-        echo "Running code quality checks..."
-        echo "============================================"
-        dotnet tool install --global dotnet-format
-        dotnet format ${{ env.BACKEND_PROJECT }} --verify-no-changes --verbosity diagnostic || true
-    
-    - name: 📝 Code Health - TODO/FIXME Analysis
-      run: |
-        echo "============================================"
-        echo "Checking for unresolved TODOs and FIXMEs..."
-        echo "============================================"
-        grep -r "TODO\|FIXME" Backend/ --exclude-dir=bin --exclude-dir=obj || echo "✅ No TODOs or FIXMEs found"
-
-  integration-tests:
-    name: Integration Tests
-    runs-on: ubuntu-latest
-    needs: [backend-ci, frontend-ci]
-    
-    steps:
-    - name: 📥 Checkout code
-      uses: actions/checkout@v4
-    
-    - name: 🔧 Setup .NET 10
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: ${{ env.DOTNET_VERSION }}
-    
-    - name: 🔗 Run Integration Tests
-      run: |
-        echo "============================================"
-        echo "Running integration tests..."
-        echo "============================================"
-        dotnet test ${{ env.TEST_PROJECT }} \
-          --filter "Category=Integration" \
-          --logger "trx" \
-          --results-directory ./IntegrationTestResults || echo "⚠️ No integration tests found yet"
-    
-    - name: 📤 Upload Integration Test Results
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: integration-test-results
-        path: IntegrationTestResults/**/*
-        retention-days: 30
-
-  deploy-production:
-    name: Deploy to Production (CD)
-    runs-on: ubuntu-latest
-    needs: [backend-ci, frontend-ci, quality-checks, integration-tests]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
-    environment:
-      name: production
-      url: https://your-quizapp.com
-    
-    steps:
-    - name: 📥 Download Backend Build
-      uses: actions/download-artifact@v4
-      with:
-        name: backend-build
-        path: ./backend-build
-    
-    - name: 📥 Download Frontend Build
-      uses: actions/download-artifact@v4
-      with:
-        name: frontend-build
-        path: ./frontend-build
-    
-    - name: 🚀 Deploy to Production
-      run: |
-        echo "============================================"
-        echo "DEPLOYMENT SIMULATION"
-        echo "============================================"
-        echo "✅ Backend ready: ./backend-build"
-        echo "✅ Frontend ready: ./frontend-build"
-        echo ""
-        echo "📝 To enable real deployment:"
-        echo "1. Set up Azure App Service or Docker"
-        echo "2. Add deployment credentials to GitHub Secrets"
-        echo "3. Uncomment the real deployment step below"
-        echo "============================================"
-
-  monitoring:
-    name: Production Monitoring
-    runs-on: ubuntu-latest
-    needs: deploy-production
-    if: github.ref == 'refs/heads/main'
-    
-    steps:
-    - name: 🏥 Health Check
-      run: |
-        echo "============================================"
-        echo "PRODUCTION HEALTH CHECK"
-        echo "============================================"
-        echo "Timestamp: $(date)"
-        echo "Deployment: Successful"
-        echo "Status: Healthy"
-        echo "✅ Application is healthy"
-        echo "============================================"
-    
-    - name: 📊 Create Monitoring Log
-      run: |
-        mkdir -p monitoring
-        cat > monitoring/health-check.txt << EOF
-        QuizApp Production Health Check
-        ================================
-        Timestamp: $(date)
-        Git Commit: ${{ github.sha }}
-        Deployment Status: Success
-        Health Status: Healthy
-        Backend: OK
-        Frontend: OK
-        Database: OK (simulated)
-        ================================
-        EOF
-    
-    - name: 📤 Upload Monitoring Log
-      uses: actions/upload-artifact@v4
-      with:
-        name: monitoring-log-${{ github.run_number }}
-        path: monitoring/health-check.txt
-        retention-days: 90
-
-  notify:
-    name: Pipeline Status Notification
-    runs-on: ubuntu-latest
-    needs: [backend-ci, frontend-ci, quality-checks, integration-tests]
-    if: always()
-    
-    steps:
-    - name: 📢 Pipeline Summary
-      run: |
-        echo "============================================"
-        echo "PIPELINE EXECUTION SUMMARY"
-        echo "============================================"
-        echo "Repository: ${{ github.repository }}"
-        echo "Branch: ${{ github.ref_name }}"
-        echo "Commit: ${{ github.sha }}"
-        echo "Triggered by: ${{ github.actor }}"
-        echo "Event: ${{ github.event_name }}"
-        echo ""
-        echo "✅ Backend CI: Completed"
-        echo "✅ Frontend CI: Completed"
-        echo "✅ Quality Checks: Completed"
-        echo "✅ Integration Tests: Completed"
-        echo "============================================"
+    # -----------------------
+    # QA CHECKS
+    # -----------------------
+    - name: Run ESLint
+      working-directory: ./frontend
+      run: npm run lint
