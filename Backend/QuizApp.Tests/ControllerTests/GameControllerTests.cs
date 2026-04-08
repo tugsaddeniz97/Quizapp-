@@ -11,7 +11,7 @@ using Xunit;
 
 namespace QuizApp.Tests.ControllerTests
 {
-    
+
     public class GameControllerTests
     {
         [Fact]
@@ -38,7 +38,7 @@ namespace QuizApp.Tests.ControllerTests
 
             // Assert
             var response = result.Value as PlayResponse;
-           
+
             Assert.NotNull(response);
             Assert.True(response.Correct);
             Assert.True(response.PointsEarned > 0);

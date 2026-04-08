@@ -29,13 +29,13 @@ namespace QuizApp.Controllers
         {
             var player = _context.Players.Find(request.PlayerId);
             var question = _context.Questions.Find(request.QuestionId);
-            if(player == null || question == null)
+            if (player == null || question == null)
             {
                 return BadRequest("Player or Question not found.");
             }
             bool isCorrect = question.CorrectAnswer.Equals(request.Answer, StringComparison.OrdinalIgnoreCase);
 
-            int points = isCorrect ? 10 + Math.Max(0, 5 - request.TimeTakenSeconds)  : 0;
+            int points = isCorrect ? 10 + Math.Max(0, 5 - request.TimeTakenSeconds) : 0;
 
             var score = new Score
             {
@@ -65,11 +65,11 @@ namespace QuizApp.Controllers
                 .OrderBy(q => Guid.NewGuid())
                 .Take(count)
                 .Select(q => QuestionMapper.ToPlayDTO(q));
-                
-                
+
+
             return Ok(questions);
         }
 
-        
+
     }
 }

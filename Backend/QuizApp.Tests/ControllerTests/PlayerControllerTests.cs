@@ -48,7 +48,7 @@ namespace QuizApp.Tests.ControllerTests
             };
             var player2 = new Player
             {
-          
+
                 Username = "Player2",
                 CreatedAt = DateTime.Now,
                 TotalScore = 0

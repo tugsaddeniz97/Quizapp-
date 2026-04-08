@@ -69,7 +69,7 @@ namespace QuizApp.Tests.ControllerTests
             context.Questions.AddRange(question1, question2);
             context.SaveChanges();
 
-            
+
             var expectedQuestionsList = new List<QuestionDTO> { QuestionMapper.ToDTO(question1), QuestionMapper.ToDTO(question2) };
             //Act
             var result = new QuestionsController(context).GetQuestions() as OkObjectResult;
@@ -78,7 +78,7 @@ namespace QuizApp.Tests.ControllerTests
             var questionsList = result.Value as IEnumerable<QuestionDTO>;
 
             Assert.NotNull(questionsList);
-            
+
             Assert.Equal(expectedQuestionsList.Count, questionsList.Count());
             Assert.Equal(expectedQuestionsList, questionsList);
             //Assert
@@ -118,7 +118,7 @@ namespace QuizApp.Tests.ControllerTests
             Assert.Equal(questionDTO.Question, addedQuestion.Text);
             Assert.Equal(questionDTO.Correct_Answer, addedQuestion.CorrectAnswer);
 
-            var incorrectAnswers= System.Text.Json.JsonSerializer.Deserialize<List<string>>(addedQuestion.IncorrectAnswersJson);
+            var incorrectAnswers = System.Text.Json.JsonSerializer.Deserialize<List<string>>(addedQuestion.IncorrectAnswersJson);
             Assert.NotNull(incorrectAnswers);
             Assert.Equal(3, incorrectAnswers.Count);
             Assert.Contains("1", incorrectAnswers);

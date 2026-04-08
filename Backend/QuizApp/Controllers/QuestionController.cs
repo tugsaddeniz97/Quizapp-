@@ -47,12 +47,12 @@ namespace QuizApp.Controllers
 
             var questionDTO = apiResponse.Results;
             if (questionDTO == null) return BadRequest("Invalid JSON format.");
-            
+
             var questions = questionDTO.Select(q => QuestionMapper.ToEntity(q));
             _context.Questions.AddRange(questions);
             _context.SaveChanges();
-            
-           
+
+
             return Ok(questions);
 
         }
