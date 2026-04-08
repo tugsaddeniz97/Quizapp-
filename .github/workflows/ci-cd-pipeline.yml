@@ -7,9 +7,9 @@ on:
     branches: [main]
 
 jobs:
-  build-and-test:
+  backend-ci:
     runs-on: ubuntu-latest
-    name: Build, Test & Quality Checks
+    name: Backend - Build & Test
 
     steps:
       - name: Checkout code
@@ -45,10 +45,18 @@ jobs:
         run: dotnet format --verify-no-changes --verbosity diagnostic
         continue-on-error: true
 
+  frontend-ci:
+    runs-on: ubuntu-latest
+    name: Frontend - Build & Lint
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18.x"
+          node-version: "20.19.x"
           cache: "npm"
           cache-dependency-path: Frontend/package-lock.json
 
@@ -67,7 +75,7 @@ jobs:
   # Simulated Deployment
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: [backend-ci, frontend-ci]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     name: Deploy to Production
 
