@@ -11,6 +11,8 @@ A full-stack quiz application built with **ASP.NET Core 10** (backend) and **Rea
 - [API Endpoints](#api-endpoints)
 - [Database Schema](#database-schema)
 - [Testing](#testing)
+- [CI/CD Pipeline](#cicd-pipeline)
+- [QA Measures](#qa-measures)
 - [Project Structure](#project-structure)
 - [Frontend Structure](#frontend-structure)
 
@@ -28,6 +30,7 @@ A full-stack quiz application built with **ASP.NET Core 10** (backend) and **Rea
 ## 🛠️ Tech Stack
 
 **Backend:**
+
 - .NET 10
 - ASP.NET Core Web API
 - Entity Framework Core 10
@@ -35,11 +38,13 @@ A full-stack quiz application built with **ASP.NET Core 10** (backend) and **Rea
 - xUnit & Moq (Testing)
 
 **Frontend:**
+
 - React
 - Vite (Development server on port 5173)
 - Tailwind CSS
 
 **Tools:**
+
 - CORS configured for React frontend
 - In-Memory Database for testing
 
@@ -48,6 +53,7 @@ A full-stack quiz application built with **ASP.NET Core 10** (backend) and **Rea
 The application follows a 3-tier architecture with Controllers (API), Business Logic (Mappers/DTOs), and Data Access (EF Core + SQLite).
 
 **Key Components:**
+
 - **Models**: Player, Question, Score (database entities)
 - **DTOs**: QuestionDTO, PlayQuestionDTO, PlayResponse (API contracts)
 - **Mappers**: QuestionMapper (entity-DTO conversion)
@@ -80,15 +86,18 @@ Note: CORS is configured for localhost:5173. Update Program.cs if using a differ
 ## 📡 API Endpoints
 
 ### Players
+
 - `POST /Player` - Create player (body: `{"userName": "string"}`)
 - `GET /Player` - Get all players
 
 ### Questions
+
 - `GET /Questions` - Get all questions
 - `POST /Questions` - Add question (body: QuestionDTO)
 - `POST /Questions/import` - Import from questionsData.json
 
 ### Gameplay
+
 - `GET /play/questions?count=10` - Get random questions
 - `POST /play` - Submit answer (body: `{"playerId": 1, "questionId": 5, "answer": "Paris", "timeTakenSeconds": 8}`)
 
@@ -109,7 +118,53 @@ Note: CORS is configured for localhost:5173. Update Program.cs if using a differ
 Run tests with `dotnet test` from QuizApp.Tests folder.
 Tests use in-memory database and follow AAA pattern (Arrange-Act-Assert).
 
+## ⚙️ CI/CD Pipeline
+
+The pipeline runs on every push and pull request to `main` and includes separate jobs for backend and frontend, plus simulated deploy and monitoring steps.
+
+**Backend CI:**
+
+- Restore dependencies (`dotnet restore`)
+- Build (`dotnet build --configuration Release --no-restore`)
+- Unit and integration tests with coverage (`dotnet test --collect:"XPlat Code Coverage"`)
+- Upload coverage to Codecov
+- Formatting check (`dotnet format --verify-no-changes`)
+
+**Frontend CI:**
+
+- Setup Node.js 20.19.x
+- Install dependencies (`npm ci`)
+- Lint (`npm run lint`)
+- Build (`npm run build`)
+
+**Deploy (simulated):**
+
+- Runs only on `main` pushes after backend and frontend CI complete
+- Prints deployment messages (simulation)
+
+**Monitoring (simulated):**
+
+- Runs after deploy and prints health check messages (simulation)
+
+## ✅ QA Measures
+
+Quality assurance measures used in the pipeline (in addition to automated tests):
+
+1. **Build verification**
+   - Backend: `dotnet build --configuration Release --no-restore`
+   - Frontend: `npm run build`
+
+2. **Static code checks / linting**
+   - Backend formatting check: `dotnet format --verify-no-changes`
+   - Frontend linting: `npm run lint`
+
+3. **Coverage reporting**
+   - Test coverage is collected and uploaded to Codecov
+
+Automated tests include unit tests and integration tests executed via `dotnet test` in CI.
+
 ## 📁 Project Structure
+
 ```
 QuizApp/
 ├── Controllers/
@@ -172,4 +227,3 @@ Frontend/
 └── vite.config.js
 
 ```
-
