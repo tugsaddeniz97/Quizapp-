@@ -22,6 +22,8 @@ builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+// Register HttpClient
+builder.Services.AddHttpClient();
 
 //add EF Core + SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>

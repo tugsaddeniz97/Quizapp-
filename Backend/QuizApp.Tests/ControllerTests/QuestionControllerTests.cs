@@ -8,8 +8,12 @@ using QuizApp.Models;
 using QuizApp.Mapper;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
+using System.Text.Json;
 using Xunit;
+using Moq;
+using Moq.Protected;
 
 
 namespace QuizApp.Tests.ControllerTests
@@ -29,7 +33,8 @@ namespace QuizApp.Tests.ControllerTests
         {
             //Arrange
             var context = GetDbContext();
-            var result = new QuestionsController(context).GetQuestions() as OkObjectResult;
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
+            var result = new QuestionsController(context, mockHttpClientFactory.Object).GetQuestions() as OkObjectResult;
 
             //Act
             Assert.NotNull(result);
@@ -46,6 +51,7 @@ namespace QuizApp.Tests.ControllerTests
         {
             //Arrange
             var context = GetDbContext();
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
             var question1 = new Question
             {
                 Type = "multiple",
@@ -72,7 +78,7 @@ namespace QuizApp.Tests.ControllerTests
 
             var expectedQuestionsList = new List<QuestionDTO> { QuestionMapper.ToDTO(question1), QuestionMapper.ToDTO(question2) };
             //Act
-            var result = new QuestionsController(context).GetQuestions() as OkObjectResult;
+            var result = new QuestionsController(context, mockHttpClientFactory.Object).GetQuestions() as OkObjectResult;
             Assert.NotNull(result);
 
             var questionsList = result.Value as IEnumerable<QuestionDTO>;
@@ -84,12 +90,14 @@ namespace QuizApp.Tests.ControllerTests
             //Assert
 
         }
+
         [Fact]
         public void QuestionController_AddQuestion_AddsQuestionToDatabase()
         {
             //Arrange
             var context = GetDbContext();
-            var controller = new QuestionsController(context);
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
+            var controller = new QuestionsController(context, mockHttpClientFactory.Object);
 
             var questionDTO = new QuestionDTO()
             {
@@ -125,6 +133,70 @@ namespace QuizApp.Tests.ControllerTests
             Assert.Contains("3", incorrectAnswers);
             Assert.Contains("5", incorrectAnswers);
 
+        }
+
+        [Fact]
+        public async Task QuestionController_FetchQuestionsFromApi_FetchesAndSavesQuestionsSuccessfully()
+        {
+            //Arrange
+            var context = GetDbContext();
+            var mockApiResponse = new QuestionApiResponse
+            {
+                Response_Code = 0,
+                Results = new List<QuestionDTO>
+                {
+                    new QuestionDTO
+                    {
+                        Type = "multiple",
+                        Difficulty = "easy",
+                        Category = "Science",
+                        Question = "What is H2O?",
+                        Correct_Answer = "Water",
+                        Incorrect_Answers = new List<string> { "Oxygen", "Hydrogen", "Carbon" }
+                    },
+                    new QuestionDTO
+                    {
+                        Type = "multiple",
+                        Difficulty = "medium",
+                        Category = "History",
+                        Question = "When did World War II end?",
+                        Correct_Answer = "1945",
+                        Incorrect_Answers = new List<string> { "1944", "1946", "1943" }
+                    }
+                }
+            };
+
+            var jsonResponse = JsonSerializer.Serialize(mockApiResponse);
+            var mockHttpMessageHandler = new Mock<HttpMessageHandler>();
+            mockHttpMessageHandler.Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>()
+                )
+                .ReturnsAsync(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    Content = new StringContent(jsonResponse)
+                });
+
+            var httpClient = new HttpClient(mockHttpMessageHandler.Object);
+            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
+            mockHttpClientFactory.Setup(x => x.CreateClient(It.IsAny<string>())).Returns(httpClient);
+
+            var controller = new QuestionsController(context, mockHttpClientFactory.Object);
+
+            //Act
+            var result = await controller.FetchQuestionsFromApi(10) as OkObjectResult;
+
+            //Assert
+            Assert.NotNull(result);
+            var questionsInDb = context.Questions.ToList();
+            Assert.Equal(2, questionsInDb.Count);
+            Assert.Equal("What is H2O?", questionsInDb[0].Text);
+            Assert.Equal("Water", questionsInDb[0].CorrectAnswer);
+            Assert.Equal("When did World War II end?", questionsInDb[1].Text);
+            Assert.Equal("1945", questionsInDb[1].CorrectAnswer);
         }
     }
 }

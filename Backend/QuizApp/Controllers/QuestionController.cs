@@ -12,10 +12,12 @@ namespace QuizApp.Controllers
     public class QuestionsController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public QuestionsController(AppDbContext context)
+        public QuestionsController(AppDbContext context, IHttpClientFactory httpClientFactory)
         {
             _context = context;
+            _httpClientFactory = httpClientFactory;
         }
 
         [HttpGet]
@@ -24,6 +26,7 @@ namespace QuizApp.Controllers
             var questions = _context.Questions.ToList().Select(q => QuestionMapper.ToDTO(q));
             return Ok(questions);
         }
+
         [HttpPost]
         public IActionResult AddQuestion(QuestionDTO dto)
         {
@@ -32,6 +35,7 @@ namespace QuizApp.Controllers
             _context.SaveChanges();
             return Ok(question);
         }
+
         [HttpPost("import")]
         public IActionResult ImportQuestions()
         {
@@ -55,6 +59,57 @@ namespace QuizApp.Controllers
 
             return Ok(questions);
 
+        }
+
+        [HttpPost("fetch")]
+        public async Task<IActionResult> FetchQuestionsFromApi([FromQuery] int amount = 10)
+        {
+            if (amount < 1 || amount > 50)
+            {
+                return BadRequest("Amount must be between 1 and 50.");
+            }
+
+            try
+            {
+                var httpClient = _httpClientFactory.CreateClient();
+                var response = await httpClient.GetAsync($"https://opentdb.com/api.php?amount={amount}&type=multiple");
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    return StatusCode((int)response.StatusCode, "Failed to fetch questions from external API.");
+                }
+
+                var content = await response.Content.ReadAsStringAsync();
+                var options = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
+
+                var apiResponse = JsonSerializer.Deserialize<QuestionApiResponse>(content, options);
+
+                if (apiResponse?.Results == null || apiResponse.Response_Code != 0)
+                {
+                    return BadRequest("Invalid response from external API.");
+                }
+
+                var questions = apiResponse.Results.Select(q => QuestionMapper.ToEntity(q));
+                _context.Questions.AddRange(questions);
+                _context.SaveChanges();
+
+                return Ok(new
+                {
+                    Message = $"Successfully fetched and saved {apiResponse.Results.Count} questions.",
+                    Questions = apiResponse.Results
+                });
+            }
+            catch (HttpRequestException ex)
+            {
+                return StatusCode(500, $"Error fetching questions: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
         }
     }
 }
